@@ -79,13 +79,9 @@ cd flappy-bird-dqn
 Install the required dependencies:
 
 ```bash
-pip install torch gymnasium flappy-bird-gymnasium numpy pyyaml
-```
+pip install uv
+uv sync
 
-or, if a requirements file is provided,
-
-```bash
-pip install -r requirements.txt
 ```
 
 ---
@@ -95,7 +91,7 @@ pip install -r requirements.txt
 To begin training, run
 
 ```bash
-python main.py
+uv run -m python main.py
 ```
 
 The agent will interact with the environment, collect experience, optimize the online network, perform soft updates on the target network, and periodically save model checkpoints.
@@ -109,14 +105,20 @@ Training hyperparameters are defined in `config.yaml`.
 Common parameters include:
 
 ```yaml
-learning_rate:
-gamma:
-batch_size:
-buffer_size:
-tau:
-epsilon_start:
-epsilon_end:
-epsilon_decay:
+alpha: 0.001
+gamma: 0.99
+epsilon_init: 1.0
+epsilon_min: 0.01
+epsilon_decay: 0.995
+replay_memory_size: 100000
+batch_size: 64
+reward_threshold: 1000
+soft_update_tau: 0.005
+hidden_dim: 256
+dueling: true
+double_dqn: true
+episodes: 5000
+save_every: 100
 ```
 
 ---
@@ -146,3 +148,7 @@ epsilon_decay:
 ## License
 
 This project is released under the MIT License. See the `LICENSE` file for additional information.
+
+## Demonstration
+
+![Flappy Bird Gameplay Animation](assets/output.gif)
